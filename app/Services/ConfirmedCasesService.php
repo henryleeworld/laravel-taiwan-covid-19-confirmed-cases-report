@@ -29,13 +29,10 @@ class ConfirmedCasesService
      *
      * @return mixed
      */
-    private function makeHttpRequest()
+    private function makeHttpRequest($url)
     {
-        $response = $this->client->request('GET', config('client.confirmed_cases_url'), [
+        $response = $this->client->request('GET', $url, [
             'curl' => [
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_MAXREDIRS      => 3,
-                CURLOPT_POSTREDIR      => 3,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_SSLVERSION     => CURL_SSLVERSION_TLSv1_2,
@@ -45,23 +42,37 @@ class ConfirmedCasesService
     }
 
     /**
-     * Get data table
+     * Get breakdown by district data table
      *
      * @return string
      */
-    public function getDataTable()
+    public function getBreakdownByDistrictDataTable()
     {
-            $confirmedCases = $this->makeHttpRequest();
+            $confirmedCases = $this->makeHttpRequest(config('client.breakdown_of_confirmed_cases_by_district_url'));
             $confirmedCases = $confirmedCases['data'];
             return datatables()->of($confirmedCases)
-                               ->editColumn('a02', function ($confirmedCases) {
-                                   return Carbon::parse($confirmedCases['a02'])->month;
+                               ->editColumn('a01', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a01'])->format('Y-m-d');
                                })
-                               ->editColumn('a05', function ($confirmedCases) {
-                                   return ($confirmedCases['a05'] == 'F') ? '女' : '男';
+                               ->editColumn('a04', function ($confirmedCases) {
+                                   return ($confirmedCases['a04'] == 'F') ? '女' : '男';
                                })
-                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07'])->toJson();
+                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06'])->toJson();
     }
 
-
+    /**
+     * Get daily data table
+     *
+     * @return string
+     */
+    public function getDailytDataTable()
+    {
+            $confirmedCases = $this->makeHttpRequest(config('client.daily_confirmed_cases_url'));
+            $confirmedCases = $confirmedCases['data'];
+            return datatables()->of($confirmedCases)
+                               ->editColumn('a01', function ($confirmedCases) {
+                                   return $confirmedCases['a01'] == 'TW/Taiwan' ? '台灣' : $confirmedCases['a01'];
+                               })
+                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11'])->toJson();
+    }
 }

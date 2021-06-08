@@ -23,27 +23,52 @@ class ConfirmedCasesController extends Controller
     }
 
     /**
-     * Create a dashboard.
+     * Create breakdown by district dashboard.
      *
      * @return void
      */
-    public function index()
+    public function showBreakdownByDistrict()
     {
-        return view('report');
+        return view('breakdown-by-district-report');
     }
 
     /**
-     * Get data
+     * Create daily dashboard.
+     *
+     * @return void
+     */
+    public function showDaily()
+    {
+        return view('daily-report');
+    }
+
+    /**
+     * Get breakdown by district data
      *
      * @param Request $request Request
      *
      * @return string | \Illuminate\Contracts\Support\Renderable
      */
-    public function getData(Request $request)
+    public function getBreakdownByDistrictData(Request $request)
     {
         if ($request->ajax()) {
-            return $this->confirmedCasesService->getDataTable();
+            return $this->confirmedCasesService->getBreakdownByDistrictDataTable();
         }
-        return view('report');
+        return view('breakdown-by-district-report');
+    }
+
+    /**
+     * Get daily data
+     *
+     * @param Request $request Request
+     *
+     * @return string | \Illuminate\Contracts\Support\Renderable
+     */
+    public function getDailyData(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->confirmedCasesService->getDailytDataTable();
+        }
+        return view('daily-report');
     }
 }

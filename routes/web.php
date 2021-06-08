@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cases/confirmed', [ConfirmedCasesController::class, 'index'])->name('home');
-Route::get('/cases/confirmed/get-data', [ConfirmedCasesController::class, 'getData'])->name('get-data');
+Route::get('/cases/confirmed/breakdown-by-district', [ConfirmedCasesController::class, 'showBreakdownByDistrict'])->name('breakdown-by-district');
+Route::get('/cases/confirmed/breakdown-by-district/get-data', [ConfirmedCasesController::class, 'getBreakdownByDistrictData'])->name('get-breakdown-by-district-data');
+Route::get('/cases/confirmed/daily', [ConfirmedCasesController::class, 'showDaily'])->name('daily');
+Route::get('/cases/confirmed/daily/get-data', [ConfirmedCasesController::class, 'getDailyData'])->name('get-daily-data');

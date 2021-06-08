@@ -12,18 +12,21 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" />
     </head>
     <body>
-        <div class="container-fluid col-sm-6 mt-3">
-            <table id="confirmed-cases-report" class="cell-border compact stripe" style="width: 100%;">
+        <div class="container-fluid col-sm-12 mt-3">
+            <table id="daily-confirmed-cases-report" class="cell-border compact stripe" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th>編號</th>
-                        <th>發病年份</th>
-                        <th>發病月份</th>
-                        <th>發病週別</th>
-                        <th>縣市</th>
-                        <th>性別</th>
-                        <th>是否為境外移入</th>
-                        <th>年齡層</th>
+                        <th>國家</th>
+                        <th>檢核日期</th>
+                        <th>確診數</th>
+                        <th>死亡數</th>
+                        <th>解除隔離數</th>
+                        <th>隔離中人數</th>
+                        <th>解封指數</th>
+                        <th>7 天平均解封指數</th>
+                        <th>7 天平均新增確診數</th>
+                        <th>14 天平均新增確診數</th>
+                        <th>交流距離</th>
                     </tr>
                 </thead>
             </table>
@@ -44,7 +47,7 @@
 
                 $.fn.dataTable.ext.classes.sPageButton = "";
 
-                $("#confirmed-cases-report").DataTable({
+                $("#daily-confirmed-cases-report").DataTable({
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Chinese-traditional.json",
                     },
@@ -52,9 +55,9 @@
                     dom: 'lBfrtip<"actions">',
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route("get-data") }}',
+                    ajax: '{{ route("get-daily-data") }}',
                     columns: [
-                        { data: "id", name: "id" },
+                        // { data: "id", name: "id" },
                         { data: "a01", name: "a01" },
                         { data: "a02", name: "a02" },
                         { data: "a03", name: "a03" },
@@ -62,9 +65,13 @@
                         { data: "a05", name: "a05" },
                         { data: "a06", name: "a06" },
                         { data: "a07", name: "a07" },
+                        { data: "a08", name: "a08" },
+                        { data: "a09", name: "a09" },
+                        { data: "a10", name: "a10" },
+                        { data: "a11", name: "a11" },
                     ],
                     lengthMenu: [10, 25, 50, 100],
-                    order: [[0, "desc"]],
+                    order: [[1, "desc"]],
                     pageLength: 10,
                     responsive: true,
                     scrollX: true,
