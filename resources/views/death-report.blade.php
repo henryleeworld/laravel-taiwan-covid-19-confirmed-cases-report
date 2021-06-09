@@ -13,20 +13,21 @@
     </head>
     <body>
         <div class="container-fluid col-sm-12 mt-3">
-            <table id="daily-confirmed-cases-report" class="cell-border compact stripe" style="width: 100%;">
+            <table id="deaths-report" class="cell-border compact stripe" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th>國家</th>
-                        <th>檢核日期</th>
-                        <th>確診數</th>
-                        <th>死亡數</th>
-                        <th>解除隔離數</th>
-                        <th>隔離中人數</th>
-                        <th>解封指數</th>
-                        <th>7 天平均解封指數</th>
-                        <th>7 天平均新增確診數</th>
-                        <th>14 天平均新增確診數</th>
-                        <th>交流距離</th>
+                        <th>公布日</th>
+                        <th>案號</th>
+                        <th>性別</th>
+                        <th>年齡</th>
+                        <th>慢性病史</th>
+                        <th>活動接觸史</th>
+                        <th>發病日</th>
+                        <th>症狀</th>
+                        <th>採檢日</th>
+                        <th>住院／隔離日</th>
+                        <th>確診日</th>
+                        <th>死亡日</th>
                     </tr>
                 </thead>
             </table>
@@ -47,7 +48,7 @@
 
                 $.fn.dataTable.ext.classes.sPageButton = "";
 
-                $("#daily-confirmed-cases-report").DataTable({
+                $("#deaths-report").DataTable({
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Chinese-traditional.json",
                     },
@@ -55,7 +56,7 @@
                     dom: 'lBfrtip<"actions">',
                     processing: true,
                     serverSide: true,
-                    ajax: '{{ route("get-daily-data") }}',
+                    ajax: '{{ route("get-death-data") }}',
                     columns: [
                         // { data: "id", name: "id" },
                         { data: "a01", name: "a01" },
@@ -69,6 +70,7 @@
                         { data: "a09", name: "a09" },
                         { data: "a10", name: "a10" },
                         { data: "a11", name: "a11" },
+                        { data: "a12", name: "a12" },
                     ],
                     lengthMenu: [10, 25, 50, 100],
                     order: [[1, "desc"]],

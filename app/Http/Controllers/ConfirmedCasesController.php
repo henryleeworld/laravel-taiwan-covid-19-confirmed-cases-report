@@ -43,6 +43,16 @@ class ConfirmedCasesController extends Controller
     }
 
     /**
+     * Create death dashboard.
+     *
+     * @return void
+     */
+    public function showDeath()
+    {
+        return view('death-report');
+    }
+
+    /**
      * Get breakdown by district data
      *
      * @param Request $request Request
@@ -67,8 +77,23 @@ class ConfirmedCasesController extends Controller
     public function getDailyData(Request $request)
     {
         if ($request->ajax()) {
-            return $this->confirmedCasesService->getDailytDataTable();
+            return $this->confirmedCasesService->getDailyDataTable();
         }
         return view('daily-report');
+    }
+
+    /**
+     * Get daily data
+     *
+     * @param Request $request Request
+     *
+     * @return string | \Illuminate\Contracts\Support\Renderable
+     */
+    public function getDeathData(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->confirmedCasesService->getDeathDataTable();
+        }
+        return view('death-report');
     }
 }

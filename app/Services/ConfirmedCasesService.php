@@ -65,7 +65,7 @@ class ConfirmedCasesService
      *
      * @return string
      */
-    public function getDailytDataTable()
+    public function getDailyDataTable()
     {
             $confirmedCases = $this->makeHttpRequest(config('client.daily_confirmed_cases_url'));
             $confirmedCases = $confirmedCases['data'];
@@ -73,6 +73,31 @@ class ConfirmedCasesService
                                ->editColumn('a01', function ($confirmedCases) {
                                    return $confirmedCases['a01'] == 'TW/Taiwan' ? '台灣' : $confirmedCases['a01'];
                                })
+                               ->editColumn('a02', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a02'])->format('Y-m-d');
+                               })
                                ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11'])->toJson();
+    }
+
+    /**
+     * Get death data table
+     *
+     * @return string
+     */
+    public function getDeathDataTable()
+    {
+            $confirmedCases = $this->makeHttpRequest(config('client.deaths_url'));
+            $confirmedCases = $confirmedCases['data'];
+            return datatables()->of($confirmedCases)
+                               ->editColumn('a01', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a01'])->format('Y-m-d');
+                               })
+                               ->editColumn('a11', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a11'])->format('Y-m-d');
+                               })
+                               ->editColumn('a12', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a12'])->format('Y-m-d');
+                               })
+                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11', 'a12'])->toJson();
     }
 }
