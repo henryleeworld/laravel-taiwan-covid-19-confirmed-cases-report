@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/cases/confirmed/breakdown-by-district', [ConfirmedCasesController::class, 'showBreakdownByDistrict'])->name('breakdown-by-district');
 Route::get('/cases/confirmed/breakdown-by-district/get-data', [ConfirmedCasesController::class, 'getBreakdownByDistrictData'])->name('get-breakdown-by-district-data');
 Route::get('/cases/confirmed/daily', [ConfirmedCasesController::class, 'showDaily'])->name('daily');
