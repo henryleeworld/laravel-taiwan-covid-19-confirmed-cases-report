@@ -54,9 +54,6 @@ class ConfirmedCasesService
                                ->editColumn('a01', function ($confirmedCases) {
                                    return Carbon::parse($confirmedCases['a01'])->format('Y-m-d');
                                })
-                               ->editColumn('a04', function ($confirmedCases) {
-                                   return ($confirmedCases['a04'] == 'F') ? '女' : '男';
-                               })
                                ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06'])->toJson();
     }
 
@@ -70,13 +67,10 @@ class ConfirmedCasesService
             $confirmedCases = $this->makeHttpRequest(config('client.daily_confirmed_cases_url'));
             $confirmedCases = $confirmedCases['data'];
             return datatables()->of($confirmedCases)
-                               ->editColumn('a01', function ($confirmedCases) {
-                                   return $confirmedCases['a01'] == 'TW/Taiwan' ? '台灣' : $confirmedCases['a01'];
+                               ->editColumn('a04', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a04'])->format('Y-m-d');
                                })
-                               ->editColumn('a02', function ($confirmedCases) {
-                                   return Carbon::parse($confirmedCases['a02'])->format('Y-m-d');
-                               })
-                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11'])->toJson();
+                               ->rawColumns(['id', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11', 'a12'])->toJson();
     }
 
     /**
@@ -92,12 +86,9 @@ class ConfirmedCasesService
                                ->editColumn('a01', function ($confirmedCases) {
                                    return Carbon::parse($confirmedCases['a01'])->format('Y-m-d');
                                })
-                               ->editColumn('a11', function ($confirmedCases) {
-                                   return Carbon::parse($confirmedCases['a11'])->format('Y-m-d');
+                               ->editColumn('a13', function ($confirmedCases) {
+                                   return Carbon::parse($confirmedCases['a13'])->format('Y-m-d');
                                })
-                               ->editColumn('a12', function ($confirmedCases) {
-                                   return Carbon::parse($confirmedCases['a12'])->format('Y-m-d');
-                               })
-                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11', 'a12'])->toJson();
+                               ->rawColumns(['id', 'a01', 'a02', 'a03', 'a04', 'a05', 'a06', 'a07', 'a08', 'a09', 'a10', 'a11', 'a12', 'a13'])->toJson();
     }
 }
