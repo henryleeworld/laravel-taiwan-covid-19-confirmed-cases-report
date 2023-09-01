@@ -33,13 +33,13 @@ class ConfirmedCasesController extends Controller
     }
 
     /**
-     * Create daily dashboard.
+     * Create breakdown by age dashboard.
      *
      * @return void
      */
-    public function showDaily()
+    public function showBreakdownByAge()
     {
-        return view('daily-report');
+        return view('breakdown-by-age-report');
     }
 
     /**
@@ -68,18 +68,18 @@ class ConfirmedCasesController extends Controller
     }
 
     /**
-     * Get daily data
+     * Get breakdown by age data
      *
      * @param Request $request Request
      *
      * @return string | \Illuminate\Contracts\Support\Renderable
      */
-    public function getDailyData(Request $request)
+    public function getBreakdownByAgeData(Request $request)
     {
         if ($request->ajax()) {
-            return $this->confirmedCasesService->getDailyDataTable();
+            return $this->confirmedCasesService->getBreakdownByAgeDataTable();
         }
-        return view('daily-report');
+        return view('breakdown-by-age-report');
     }
 
     /**
