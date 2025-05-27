@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ConfirmedCasesService;
+use App\Http\Integrations\Covid_19\Covid19Connector;
 use Illuminate\Http\Request;
 
-class ConfirmedCasesController extends Controller
+class Covid19Controller extends Controller
 {
 
-    private $confirmedCasesService;
+    private $covid19Connector;
 
     /**
-     * Instantiate a new ConfirmedCasesReportController instance.
+     * Instantiate a new Covid19Controller instance.
      *
-     * @param ConfirmedCasesService $confirmedCasesService Confirmed cases service
+     * @param Covid19Connector $covid19Connector COVID-19 connector
      *
      * @return void
      */
-    public function __construct(ConfirmedCasesService $confirmedCasesService)
+    public function __construct(Covid19Connector $covid19Connector)
     {
-        $this->confirmedCasesService = $confirmedCasesService;
+        $this->covid19Connector = $covid19Connector;
     }
 
     /**
@@ -62,7 +62,7 @@ class ConfirmedCasesController extends Controller
     public function getBreakdownByDistrictData(Request $request)
     {
         if ($request->ajax()) {
-            return $this->confirmedCasesService->getBreakdownByDistrictDataTable();
+            return $this->covid19Connector->getBreakdownByDistrictDataTable();
         }
         return view('breakdown-by-district-report');
     }
@@ -77,7 +77,7 @@ class ConfirmedCasesController extends Controller
     public function getBreakdownByAgeData(Request $request)
     {
         if ($request->ajax()) {
-            return $this->confirmedCasesService->getBreakdownByAgeDataTable();
+            return $this->covid19Connector->getBreakdownByAgeDataTable();
         }
         return view('breakdown-by-age-report');
     }
@@ -92,7 +92,7 @@ class ConfirmedCasesController extends Controller
     public function getDeathData(Request $request)
     {
         if ($request->ajax()) {
-            return $this->confirmedCasesService->getDeathDataTable();
+            return $this->covid19Connector->getDeathDataTable();
         }
         return view('death-report');
     }

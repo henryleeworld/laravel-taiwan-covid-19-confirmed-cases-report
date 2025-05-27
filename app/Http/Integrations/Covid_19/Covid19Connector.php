@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Integrations\Covid_19;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 
-class ConfirmedCasesService
+class Covid19Connector
 {
     /**
      * @var client
@@ -13,7 +13,7 @@ class ConfirmedCasesService
     protected $client;
 
     /**
-     * Instantiate a new ConfirmedCasesService instance.
+     * Instantiate a new Covid19Connector instance.
      *
      * @param Client $client Client
      *
@@ -48,7 +48,7 @@ class ConfirmedCasesService
      */
     public function getBreakdownByDistrictDataTable()
     {
-            $confirmedCases = $this->makeHttpRequest(config('client.breakdown_of_confirmed_cases_by_district_url'));
+            $confirmedCases = $this->makeHttpRequest(config('services.covid_19.url.breakdown_of_confirmed_cases_by_district'));
             $confirmedCases = $confirmedCases['data'];
             return datatables()->of($confirmedCases)
                                ->editColumn('a01', function ($confirmedCases) {
@@ -64,7 +64,7 @@ class ConfirmedCasesService
      */
     public function getBreakdownByAgeDataTable()
     {
-            $confirmedCases = $this->makeHttpRequest(config('client.breakdown_of_confirmed_cases_by_age_url'));
+            $confirmedCases = $this->makeHttpRequest(config('services.covid_19.url.breakdown_of_confirmed_cases_by_age'));
             $confirmedCases = $confirmedCases['data'];
             return datatables()->of($confirmedCases)
                                ->editColumn('a01', function ($confirmedCases) {
@@ -80,7 +80,7 @@ class ConfirmedCasesService
      */
     public function getDeathDataTable()
     {
-            $confirmedCases = $this->makeHttpRequest(config('client.deaths_url'));
+            $confirmedCases = $this->makeHttpRequest(config('services.covid_19.url.deaths'));
             $confirmedCases = $confirmedCases['data'];
             return datatables()->of($confirmedCases)
                                ->editColumn('a01', function ($confirmedCases) {
