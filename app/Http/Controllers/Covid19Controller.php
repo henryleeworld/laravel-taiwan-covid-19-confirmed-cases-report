@@ -12,10 +12,6 @@ class Covid19Controller extends Controller
 
     /**
      * Instantiate a new Covid19Controller instance.
-     *
-     * @param Covid19Connector $covid19Connector COVID-19 connector
-     *
-     * @return void
      */
     public function __construct(Covid19Connector $covid19Connector)
     {
@@ -23,41 +19,7 @@ class Covid19Controller extends Controller
     }
 
     /**
-     * Create breakdown by district dashboard.
-     *
-     * @return void
-     */
-    public function showBreakdownByDistrict()
-    {
-        return view('breakdown-by-district-report');
-    }
-
-    /**
-     * Create breakdown by age dashboard.
-     *
-     * @return void
-     */
-    public function showBreakdownByAge()
-    {
-        return view('breakdown-by-age-report');
-    }
-
-    /**
-     * Create death dashboard.
-     *
-     * @return void
-     */
-    public function showDeath()
-    {
-        return view('death-report');
-    }
-
-    /**
-     * Get breakdown by district data
-     *
-     * @param Request $request Request
-     *
-     * @return string | \Illuminate\Contracts\Support\Renderable
+     * Get breakdown by district data.
      */
     public function getBreakdownByDistrictData(Request $request)
     {
@@ -68,11 +30,7 @@ class Covid19Controller extends Controller
     }
 
     /**
-     * Get breakdown by age data
-     *
-     * @param Request $request Request
-     *
-     * @return string | \Illuminate\Contracts\Support\Renderable
+     * Get breakdown by age data.
      */
     public function getBreakdownByAgeData(Request $request)
     {
@@ -83,17 +41,37 @@ class Covid19Controller extends Controller
     }
 
     /**
-     * Get daily data
-     *
-     * @param Request $request Request
-     *
-     * @return string | \Illuminate\Contracts\Support\Renderable
+     * Get daily data.
      */
     public function getDeathData(Request $request)
     {
         if ($request->ajax()) {
             return $this->covid19Connector->getDeathDataTable();
         }
+        return view('death-report');
+    }
+
+    /**
+     * Create breakdown by district dashboard.
+     */
+    public function showBreakdownByDistrict()
+    {
+        return view('breakdown-by-district-report');
+    }
+
+    /**
+     * Create breakdown by age dashboard.
+     */
+    public function showBreakdownByAge()
+    {
+        return view('breakdown-by-age-report');
+    }
+
+    /**
+     * Create death dashboard.
+     */
+    public function showDeath()
+    {
         return view('death-report');
     }
 }
