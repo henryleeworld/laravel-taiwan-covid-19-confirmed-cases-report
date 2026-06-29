@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Integrations\Covid_19\Covid19Connector;
+use App\Http\Integrations\Covid19\Covid19Connector;
 use Illuminate\Http\Request;
 
 class Covid19Controller extends Controller

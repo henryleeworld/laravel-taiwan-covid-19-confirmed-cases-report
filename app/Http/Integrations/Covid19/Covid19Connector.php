@@ -1,33 +1,21 @@
 <?php
 
-namespace App\Http\Integrations\Covid_19;
+namespace App\Http\Integrations\Covid19;
 
-use Carbon\Carbon;
 use GuzzleHttp\Client;
+use Illuminate\Support\Carbon;
 
 class Covid19Connector
 {
     /**
-     * @var client
-     */
-    protected $client;
-
-    /**
      * Instantiate a new Covid19Connector instance.
-     *
-     * @param Client $client Client
-     *
-     * @return void
      */
-    public function __construct(Client $client)
+    public function __construct(protected Client $client)
     {
-        $this->client = $client;
     }
 
     /**
      * Make Http request.
-     *
-     * @return mixed
      */
     private function makeHttpRequest($url)
     {
@@ -43,10 +31,8 @@ class Covid19Connector
 
     /**
      * Get breakdown by district data table
-     *
-     * @return string
      */
-    public function getBreakdownByDistrictDataTable()
+    public function getBreakdownByDistrictDataTable(): string
     {
             $confirmedCases = $this->makeHttpRequest(config('services.covid_19.url.breakdown_of_confirmed_cases_by_district'));
             $confirmedCases = $confirmedCases['data'];
@@ -59,10 +45,8 @@ class Covid19Connector
 
     /**
      * Get breakdown by age data table
-     *
-     * @return string
      */
-    public function getBreakdownByAgeDataTable()
+    public function getBreakdownByAgeDataTable(): string
     {
             $confirmedCases = $this->makeHttpRequest(config('services.covid_19.url.breakdown_of_confirmed_cases_by_age'));
             $confirmedCases = $confirmedCases['data'];
@@ -75,10 +59,8 @@ class Covid19Connector
 
     /**
      * Get death data table
-     *
-     * @return string
      */
-    public function getDeathDataTable()
+    public function getDeathDataTable(): string
     {
             $confirmedCases = $this->makeHttpRequest(config('services.covid_19.url.deaths'));
             $confirmedCases = $confirmedCases['data'];
